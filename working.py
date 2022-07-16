@@ -7,7 +7,7 @@ import math
 
 
 def url_extract():
-    url = "https://tr.indeed.com/jobs?q=developer&l=istanbul&start=10&vjk=f92002aecd1889e5"
+    url = "https://tr.indeed.com/jobs?q=developer&l=istanbul&vjk=fa715bfc59f54864"
 
     url = url.split('start=')[0]
     goto_url = url + 'start='
@@ -90,19 +90,20 @@ def transform(soup):
 
 joblist = []
 
-count_page=page_count_extract()
+def finally_jobs():
 
-for i in range(0,(count_page*10),10):
-    print(f'Getin Page,{i}')
+    count_page=page_count_extract()
 
-    c = extract(i)
-    transform(c)
+    for i in range(0,(count_page*10),10):
+        print(f'Getin Page,{i}')
 
-    #print(joblist)
+        c = extract(i)
+        transform(c)
 
-print(len(joblist))
+        #print(joblist)
+    df = pd.DataFrame(joblist)
+    print(df.head())
+    df.to_excel('jobs.xlsx')
 
 
-df = pd.DataFrame(joblist)
-print(df.head())
-df.to_excel('jobs.xlsx')
+finally_jobs()
